@@ -1,0 +1,154 @@
+animation:
+  parameters:
+    - name: "velocity"
+      type: "vec2"
+  nodes:
+    - name: "idleLeft"
+      rects:
+        - rect: [32, 64, 32, 32]
+          duration: 0.0
+    - name: "idleRight"
+      rects:
+        - rect: [32, 32, 32, 32]
+          duration: 0.0
+    - name: "idleUp"
+      rects:
+        - rect: [32, 96, 32, 32]
+          duration: 0.0
+    - name: "idleDown"
+      rects:
+        - rect: [32, 0, 32, 32]
+          duration: 0.0
+    - name: "walkLeft"
+      rects:
+        - rect: [0, 64, 32, 32]
+          duration: 0.1
+        - rect: [32, 64, 32, 32]
+          duration: 0.1
+        - rect: [64, 64, 32, 32]
+          duration: 0.1
+    - name: "walkRight"
+      rects:
+        - rect: [0, 32, 32, 32]
+          duration: 0.1
+        - rect: [32, 32, 32, 32]
+          duration: 0.1
+        - rect: [64, 32, 32, 32]
+          duration: 0.1
+    - name: "walkUp"
+      rects:
+        - rect: [0, 96, 32, 32]
+          duration: 0.1
+        - rect: [32, 96, 32, 32]
+          duration: 0.1
+        - rect: [64, 96, 32, 32]
+          duration: 0.1
+    - name: "walkDown"
+      rects:
+        - rect: [0, 0, 32, 32]
+          duration: 0.1
+        - rect: [32, 0, 32, 32]
+          duration: 0.1
+        - rect: [64, 0, 32, 32]
+          duration: 0.1
+  entryTransition:
+    to: "idleUp"
+  transitions:
+    - from: "idleLeft"
+      to: "walkLeft"
+      conditions:
+        - parameter: "velocity"
+          x: { "<": 0 }
+    - from: "idleLeft"
+      to: "walkRight"
+      conditions:
+        - parameter: "velocity"
+          x: { ">": 0 }
+    - from: "idleLeft"
+      to: "walkUp"
+      conditions:
+        - parameter: "velocity"
+          y: { "<": 0 }
+    - from: "idleLeft"
+      to: "walkDown"
+      conditions:
+        - parameter: "velocity"
+          y: { ">": 0 }
+    - from: "walkLeft"
+      to: "idleLeft"
+      conditions:
+        - parameter: "velocity"
+          x: { ">=": 0 }
+
+    - from: "idleRight"
+      to: "walkLeft"
+      conditions:
+        - parameter: "velocity"
+          x: { "<": 0 }
+    - from: "idleRight"
+      to: "walkRight"
+      conditions:
+        - parameter: "velocity"
+          x: { ">": 0 }
+    - from: "idleRight"
+      to: "walkUp"
+      conditions:
+        - parameter: "velocity"
+          y: { "<": 0 }
+    - from: "idleRight"
+      to: "walkDown"
+      conditions:
+        - parameter: "velocity"
+          y: { ">": 0 }
+    - from: "walkRight"
+      to: "idleRight"
+      conditions:
+        - parameter: "velocity"
+          x: { "<=": 0 }
+
+    - from: "idleUp"
+      to: "walkLeft"
+      conditions:
+        - parameter: "velocity"
+          x: { "<": 0 }
+    - from: "idleUp"
+      to: "walkRight"
+      conditions:
+        - parameter: "velocity"
+          x: { ">": 0 }
+    - from: "idleUp"
+      to: "walkUp"
+      conditions:
+        - parameter: "velocity"
+          y: { "<": 0 }
+    - from: "idleUp"
+      to: "walkDown"
+      conditions:
+        - parameter: "velocity"
+          y: { ">": 0 }
+    - from: "walkUp"
+      to: "idleUp"
+      conditions:
+        - parameter: "velocity"
+          y: { ">=": 0 }
+
+    - from: "idleDown"
+      to: "walkLeft"
+      conditions:
+        - parameter: "velocity"
+          x: { "<": 0 }
+    - from: "idleDown"
+      to: "walkRight"
+      conditions:
+        - parameter: "velocity"
+          x: { ">": 0 }
+    - from: "idleDown"
+      to: "walkUp"
+      conditions:
+        - parameter: "velocity"
+          y: { "<": 0 }
+    - from: "idleDown"
+      to: "walkDown"
+      conditions:
+        - parameter: "velocity"
+          y: { "<=": 0 }
