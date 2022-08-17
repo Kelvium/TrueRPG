@@ -1,11 +1,11 @@
 #ifndef RPG_SPRITEANIMATOR_HPP
 #define RPG_SPRITEANIMATOR_HPP
 
+#include "SpriteAnimation.h"
 #include <functional>
 #include <variant>
 #include <glm/vec2.hpp>
-
-#include "SpriteAnimation.h"
+#include <yaml-cpp/yaml.h>
 
 struct SpriteAnimatorNode;
 
@@ -27,7 +27,10 @@ struct SpriteAnimatorTransition
 {
     SpriteAnimatorNode *source;
     SpriteAnimatorNode *destination;
-    std::function<bool(const SpriteAnimatorParameterStorage &)> condition;
+
+    // FIXME: vector is used for ease of development of YAML animation format.
+    // it should be removed later as in 8c9eec5.
+    std::vector<std::function<bool(const SpriteAnimatorParameterStorage &)>> conditions;
 };
 
 struct SpriteAnimatorNode
@@ -53,7 +56,7 @@ public:
     class Node
     {
     public:
-        void transition(Node &destination, std::function<bool(const SpriteAnimatorParameterStorage &)> condition);
+        void transition(Node &destination, std::vector<std::function<bool(const SpriteAnimatorParameterStorage &)>> condition);
 
     private:
         friend SpriteAnimatorBuilder;
@@ -67,8 +70,7 @@ public:
     class Parameter
     {
     public:
-        template<class T>
-        const T &get(const SpriteAnimatorParameterStorage &storage) const
+        template <class T> const T &get(const SpriteAnimatorParameterStorage &storage) const
         {
             return std::get<T>(storage.at(m_parameter->name));
         }
@@ -97,5 +99,24 @@ private:
 
     SpriteAnimator build();
 };
+
+namespace YAML
+{
+
+#define __IMPL(T)                                                                                                                          \
+    template <> struct convert<T>                                                                                                          \
+    {                                                                                                                                      \
+        static bool decode(const Node &node, T &rhs);                                                                                      \
+    }
+
+__IMPL(SpriteAnimatorParameterType);
+__IMPL(SpriteAnimatorParameter);
+__IMPL(SpriteAnimatorNode);
+__IMPL(SpriteAnimatorTransition);
+__IMPL(SpriteAnimator);
+
+#undef __IMPL
+
+}; // namespace YAML
 
 #endif // RPG_SPRITEANIMATOR_HPP

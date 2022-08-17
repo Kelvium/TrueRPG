@@ -22,7 +22,14 @@ void SpriteAnimatorSystem::update(float deltaTime)
         // Handle transitions
 
         auto transitionConditionMet = [&](SpriteAnimatorTransition *t) {
-            return t->condition(animatorComponent.parameterStorage);
+            for (const auto &condition : t->conditions)
+            {
+                if (!condition(animatorComponent.parameterStorage))
+                {
+                    return false;
+                }
+            }
+            return true;
         };
 
         do

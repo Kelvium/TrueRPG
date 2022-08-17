@@ -8,6 +8,7 @@ class Animation
 {
 public:
     static SpriteAnimator createAnimator(const std::function<void(SpriteAnimatorBuilder&)>& setup);
+    static SpriteAnimator createAnimatorFromFile(const std::string &path);
 
     static void addAnimator(Entity entity, const SpriteAnimator *animator);
 };

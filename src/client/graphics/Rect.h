@@ -1,6 +1,8 @@
 #ifndef RPG_RECT_H
 #define RPG_RECT_H
 
+#include <yaml-cpp/yaml.h>
+
 template <typename T>
 class Rect {
 private:
@@ -26,6 +28,22 @@ public:
 
     inline T getHeight() const {
         return m_height;
+    }
+
+    inline void setLeft(const T& left) {
+        m_left = left;
+    }
+
+    inline void setBottom(const T& bottom) {
+        m_bottom = bottom;
+    }
+
+    inline void setWidth(const T& width) {
+        m_width = width;
+    }
+
+    inline void setHeight(const T& height) {
+        m_height = height;
     }
 
     inline bool contains(glm::vec2 pos) const
@@ -67,5 +85,27 @@ constexpr Rect<T> operator*(const Rect<T>& rect, T2 value)
 
 using IntRect = Rect<int>;
 using FloatRect = Rect<float>;
+
+namespace YAML
+{
+
+template <typename T> struct convert<Rect<T>>
+{
+    static bool decode(const Node &node, Rect<T> &rhs)
+    {
+        if (node.size() != 4)
+        {
+            return false;
+        }
+
+        rhs.setLeft(node[0].as<T>());
+        rhs.setBottom(node[1].as<T>());
+        rhs.setWidth(node[2].as<T>());
+        rhs.setHeight(node[3].as<T>());
+        return true;
+    }
+};
+
+}
 
 #endif //RPG_RECT_H
