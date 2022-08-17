@@ -4,23 +4,23 @@ animation:
       type: "vec2"
   nodes:
     - name: "idleLeft"
-      rects:
+      frames:
         - rect: [32, 64, 32, 32]
           duration: 0.0
     - name: "idleRight"
-      rects:
+      frames:
         - rect: [32, 32, 32, 32]
           duration: 0.0
     - name: "idleUp"
-      rects:
+      frames:
         - rect: [32, 96, 32, 32]
           duration: 0.0
     - name: "idleDown"
-      rects:
+      frames:
         - rect: [32, 0, 32, 32]
           duration: 0.0
     - name: "walkLeft"
-      rects:
+      frames:
         - rect: [0, 64, 32, 32]
           duration: 0.1
         - rect: [32, 64, 32, 32]
@@ -28,7 +28,7 @@ animation:
         - rect: [64, 64, 32, 32]
           duration: 0.1
     - name: "walkRight"
-      rects:
+      frames:
         - rect: [0, 32, 32, 32]
           duration: 0.1
         - rect: [32, 32, 32, 32]
@@ -36,7 +36,7 @@ animation:
         - rect: [64, 32, 32, 32]
           duration: 0.1
     - name: "walkUp"
-      rects:
+      frames:
         - rect: [0, 96, 32, 32]
           duration: 0.1
         - rect: [32, 96, 32, 32]
@@ -44,7 +44,7 @@ animation:
         - rect: [64, 96, 32, 32]
           duration: 0.1
     - name: "walkDown"
-      rects:
+      frames:
         - rect: [0, 0, 32, 32]
           duration: 0.1
         - rect: [32, 0, 32, 32]
