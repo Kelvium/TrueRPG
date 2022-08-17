@@ -51,9 +51,9 @@ animation:
           duration: 0.1
         - rect: [64, 0, 32, 32]
           duration: 0.1
-  entryTransition:
-    to: "idleUp"
   transitions:
+    - from: "entry"
+      to: "idleUp"
     - from: "idleLeft"
       to: "walkLeft"
       conditions:
