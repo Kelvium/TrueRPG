@@ -10,6 +10,7 @@ private:
     T m_height;
 public:
     Rect(T left, T bottom, T width, T height);
+    Rect();
 
     inline T getLeft() const {
         return m_left;
@@ -47,6 +48,11 @@ Rect<T>::Rect(T left, T bottom, T width, T height)
         : m_left(left), m_bottom(bottom), m_width(width), m_height(height) {
 
 }
+
+template<typename T>
+Rect<T>::Rect()
+    : m_left(T()), m_bottom(T()), m_width(T()), m_height(T())
+{}
 
 template<typename T, typename T2>
 constexpr Rect<T> operator*(const Rect<T>& rect, T2 value)
