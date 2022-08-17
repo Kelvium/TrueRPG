@@ -37,7 +37,7 @@
 #include "scripts/ButtonScript.h"
 
 #include "utils/Hierarchy.h"
-#include "utils/Animation.h"
+#include "utils/animation/Animation.h"
 #include "systems/render/PointLightRenderSystem.h"
 #include "components/render/PointLightComponent.h"
 #include "systems/player/PlayerSystem.h"
